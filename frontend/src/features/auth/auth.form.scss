@@ -1,0 +1,42 @@
+main{
+  min-height: 100vh;
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.input-group{
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+input {
+  border: none;
+  outline: none;
+  text-align: left;
+  padding-inline: 0.75rem;
+  padding-block: 0.75rem;
+  border-radius: 0.7rem;
+}
+
+.form-container{
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+a{
+  text-decoration: none;
+  color:  rgb(228, 10, 126);
+
+}
