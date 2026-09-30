@@ -1,0 +1,468 @@
+* {
+  box-sizing: border-box;
+}
+
+.interview-report {
+  width: 100%;
+  min-height: 100vh;
+
+  display: grid;
+  grid-template-columns: 253px minmax(600px, 1fr) 258px;
+
+  background: #11161e;
+  color: #f0f2f5;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  overflow: hidden;
+}
+
+
+// ======================================
+// LEFT SIDEBAR
+// ======================================
+
+.sidebar {
+  min-height: 100vh;
+
+  padding-top: 38px;
+
+  background: #11161e;
+
+  border-right: 1px solid #252b34;
+}
+
+.sidebar-heading {
+  padding-left: 31px;
+
+  margin-bottom: 22px;
+
+  color: #8c949e;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.sidebar-menu {
+  width: 100%;
+}
+
+.sidebar-item {
+  height: 42px;
+
+  margin: 0 18px 8px 0;
+  padding-left: 31px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  color: #a5adb7;
+
+  font-size: 15px;
+
+  cursor: pointer;
+}
+
+.sidebar-item.active {
+  background: #421b32;
+
+  color: #ff397d;
+}
+
+.sidebar-icon {
+  width: 17px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+}
+
+
+// ======================================
+// CENTER QUESTIONS
+// ======================================
+
+.questions-section {
+  min-width: 0;
+
+  padding: 38px 37px 40px 37px;
+
+  background: #121821;
+}
+
+.questions-heading {
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  border-bottom: 1px solid #252c35;
+
+  margin-bottom: 18px;
+}
+
+.questions-heading h1 {
+  margin: 0;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #f1f3f5;
+}
+
+.questions-count {
+  padding: 6px 13px;
+
+  border-radius: 14px;
+
+  background: #252c37;
+
+  color: #8e98a5;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.questions-list {
+  width: 100%;
+}
+
+
+// ======================================
+// QUESTION CARD
+// ======================================
+
+.question-card {
+  width: 100%;
+
+  margin-bottom: 14px;
+
+  background: #1a202b;
+
+  border: 1px solid #252d38;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+}
+
+.question-header {
+  min-height: 55px;
+
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  cursor: pointer;
+}
+
+.question-number {
+  width: 34px;
+  height: 29px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #431931;
+
+  color: #ff3478;
+
+  border-radius: 2px;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.question-text {
+  flex: 1;
+
+  color: #f0f2f4;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  line-height: 1.45;
+}
+
+.question-arrow {
+  width: 20px;
+
+  color: #ff397b;
+
+  font-size: 17px;
+
+  text-align: center;
+}
+
+
+// ======================================
+// QUESTION CONTENT
+// ======================================
+
+.question-content {
+  padding: 17px 20px 20px;
+
+  border-top: 1px solid #292f39;
+
+  background: #1a202b;
+}
+
+.content-label {
+  width: max-content;
+
+  padding: 5px 9px;
+
+  margin-bottom: 9px;
+
+  border-radius: 4px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.content-label.intention {
+  background: #29275c;
+
+  color: #9e96ff;
+}
+
+.content-label.model-answer {
+  background: #163c32;
+
+  color: #43d59a;
+}
+
+.question-content p {
+  margin: 0 0 17px;
+
+  color: #c2c8d0;
+
+  font-size: 13px;
+
+  line-height: 1.65;
+}
+
+.question-content p:last-child {
+  margin-bottom: 0;
+}
+
+
+// ======================================
+// RIGHT PANEL
+// ======================================
+
+.right-panel {
+  min-height: 100vh;
+
+  padding: 38px 18px;
+
+  background: #11161e;
+
+  border-left: 1px solid #252b34;
+}
+
+.match-title {
+  margin-bottom: 18px;
+
+  color: #8c949e;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+
+// ======================================
+// SCORE
+// ======================================
+
+.score-area {
+  padding-bottom: 25px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-bottom: 1px solid #252c35;
+}
+
+.score-circle {
+  width: 104px;
+  height: 104px;
+
+  border: 4px solid #42d767;
+
+  border-radius: 50%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 0 7px rgba(66, 215, 103, 0.15);
+}
+
+.score-number {
+  margin-top: 3px;
+
+  color: #f1f3f5;
+
+  font-size: 30px;
+  font-weight: 700;
+
+  line-height: 30px;
+}
+
+.score-percent {
+  margin-top: 2px;
+
+  color: #8c949e;
+
+  font-size: 11px;
+}
+
+.match-text {
+  margin-top: 13px;
+
+  color: #42d767;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+// ======================================
+// SKILL GAPS
+// ======================================
+
+.skill-gap {
+  padding-top: 24px;
+}
+
+.skill-heading {
+  margin-bottom: 15px;
+
+  color: #8c949e;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.skill {
+  width: 100%;
+
+  min-height: 40px;
+
+  margin-bottom: 9px;
+
+  padding: 8px 11px;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 5px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  line-height: 1.35;
+}
+
+.skill-red {
+  background: #422128;
+
+  border: 1px solid #663139;
+
+  color: #ff6262;
+}
+
+.skill-yellow {
+  background: #41371e;
+
+  border: 1px solid #635328;
+
+  color: #e7ad38;
+}
+
+.skill-orange {
+  background: #41371e;
+
+  border: 1px solid #635328;
+
+  color: #e5ab36;
+}
+
+.skill-green {
+  background: #193a29;
+
+  border: 1px solid #2a5c3d;
+
+  color: #55ce76;
+}
+
+
+// ======================================
+// RESPONSIVE
+// ======================================
+
+@media (max-width: 1100px) {
+
+  .interview-report {
+    grid-template-columns: 210px minmax(500px, 1fr) 220px;
+  }
+
+  .questions-section {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+
+@media (max-width: 850px) {
+
+  .interview-report {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    min-height: auto;
+
+    border-right: none;
+    border-bottom: 1px solid #252b34;
+  }
+
+  .sidebar-menu {
+    display: flex;
+  }
+
+  .sidebar-item {
+    margin-bottom: 0;
+  }
+
+  .right-panel {
+    min-height: auto;
+
+    border-left: none;
+    border-top: 1px solid #252b34;
+  }
+}
