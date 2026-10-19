@@ -14,11 +14,19 @@ const  navigate=useNavigate()
      const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
 
-const handleSubmit = async(e) => {
-  e.preventDefault()
-   await handleLogin({email,password})
-   navigate('/')
-}
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const result = await handleLogin({ email, password });
+
+    if (result) {
+      navigate("/");
+    }
+  } catch (error) {
+    console.log("Login failed:", error);
+  }
+};
 
 
 if(loading){
