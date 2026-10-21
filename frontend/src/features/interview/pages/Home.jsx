@@ -3,13 +3,16 @@ import React, { useState, useRef } from "react";
 import "../style/home.scss";
 import { useInterview } from "../hooks/useInterview.js";
 import { useNavigate } from "react-router";
+import { useAuth } from "../../auth/hooks/useAuth.js";
 
 const Home = () => {
     const { loading, generateReport } = useInterview();
+    const { user, handleLogout } = useAuth();
 
     const [jobDescription, setJobDescription] = useState("");
     const [selfDescription, setSelfDescription] = useState("");
     const [resumeFile, setResumeFile] = useState(null);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const resumeInputRef = useRef(null);
     const navigate = useNavigate();
@@ -63,6 +66,16 @@ const Home = () => {
         }
     };
 
+    const onLogout = async () => {
+        try {
+            await handleLogout();
+            navigate("/login");
+        } catch (error) {
+            console.error("Logout failed:", error);
+            alert("Logout failed. Please try again.");
+        }
+    };
+
     if (loading) {
         return (
             <main className="loading-screen">
@@ -74,6 +87,69 @@ const Home = () => {
     return (
         <main className="home">
             <div className="interview-page">
+
+                <div className="home-topbar">
+                    <div className="brand">ResumeIQ</div>
+
+                    <div className="profile-menu">
+                        <button
+                            type="button"
+                            className="profile-menu-button"
+                            onClick={() => setMenuOpen(!menuOpen)}
+                          
+                        >
+                            <span className="avatar">
+                                {(user?.username || user?.name || "U")
+                                    .charAt(0)
+                                    .toUpperCase()}
+                            </span>
+
+                            <span>My Account</span>
+                            <span>{menuOpen ? "▲" : "▼"}</span>
+                        </button>
+
+                        {menuOpen && (
+                            <div className="profile-dropdown">
+                                <div className="dropdown-user">
+                                    <strong>
+                                        {user?.username ||
+                                         user?.name ||
+                                         "User"}
+                                    </strong>
+                                    <small>{user?.email || ""}</small>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setMenuOpen(false);
+                                        navigate("/profile");
+                                    }}
+                                >
+                                    👤 Profile
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setMenuOpen(false);
+                                        navigate("/reports");
+                                    }}
+                                >
+                                    📄 Reports
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="logout-option"
+                                    onClick={onLogout}
+                                >
+                                    ↪ Logout
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
 
                 <header className="page-header">
                     <h1>
@@ -91,7 +167,6 @@ const Home = () => {
                     className="interview-input-group"
                     onSubmit={handleGenerateReport}
                 >
-                    {/* LEFT SIDE */}
                     <section className="left">
                         <label
                             className="section-label"
@@ -111,11 +186,7 @@ const Home = () => {
                             }
                             maxLength={5000}
                             required
-                            placeholder={
-                                "Paste the full job description here...\n\n" +
-                                "e.g. Frontend Developer requires proficiency " +
-                                "in React, JavaScript, CSS and responsive design..."
-                            }
+                            placeholder="Paste the full job description here..."
                         />
 
                         <span className="char-count">
@@ -123,14 +194,12 @@ const Home = () => {
                         </span>
                     </section>
 
-                    {/* RIGHT SIDE */}
                     <section className="right">
                         <div className="profile-heading">
                             <span>♙</span>
                             <h2>Your Profile</h2>
                         </div>
 
-                        {/* RESUME UPLOAD */}
                         <div className="input-group">
                             <label>
                                 Upload Resume
@@ -154,9 +223,7 @@ const Home = () => {
 
                                 {resumeFile ? (
                                     <>
-                                        <span className="upload-icon">
-                                            ✓
-                                        </span>
+                                        <span className="upload-icon">✓</span>
                                         <strong>
                                             Resume uploaded successfully
                                         </strong>
@@ -165,9 +232,7 @@ const Home = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <span className="upload-icon">
-                                            ⇧
-                                        </span>
+                                        <span className="upload-icon">⇧</span>
                                         <strong>
                                             Click to upload your resume
                                         </strong>
@@ -181,7 +246,6 @@ const Home = () => {
                             <span>OR</span>
                         </div>
 
-                        {/* SELF DESCRIPTION */}
                         <div className="input-group">
                             <label htmlFor="selfDescription">
                                 Quick Self-Description
@@ -195,11 +259,7 @@ const Home = () => {
                                 onChange={(e) =>
                                     setSelfDescription(e.target.value)
                                 }
-                                placeholder={
-                                    "Briefly describe your experience, key skills, " +
-                                    "and years of experience if you don't have " +
-                                    "a resume handy..."
-                                }
+                                placeholder="Briefly describe your experience, key skills, and years of experience..."
                             />
                         </div>
 

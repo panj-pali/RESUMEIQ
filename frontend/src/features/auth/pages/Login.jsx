@@ -24,7 +24,7 @@ const handleSubmit = async (e) => {
       navigate("/");
     }
   } catch (error) {
-    console.log("Login failed:", error);
+     alert(error.response?.data?.message || "Login failed")
   }
 };
 

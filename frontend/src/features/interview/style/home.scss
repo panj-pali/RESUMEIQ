@@ -1,8 +1,7 @@
-
 .home {
   min-height: 100vh;
   width: 100%;
-  padding: 48px 20px;
+  padding: 32px 20px 48px;
   box-sizing: border-box;
   background: #0b0e13;
   color: #f5f6fa;
@@ -15,6 +14,132 @@
   margin: 0 auto;
 }
 
+/* Navbar */
+.home-topbar {
+  width: 100%;
+  margin: 0 auto 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 10;
+}
+
+.brand {
+  font-size: 24px;
+  font-weight: 800;
+  color: #f5f6fa;
+  letter-spacing: -0.5px;
+}
+
+/* Account dropdown */
+.profile-menu {
+  position: relative;
+}
+
+.profile-menu-button {
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #151a22;
+  color: #f5f6fa;
+  border: 1px solid #30394a;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    border-color: #f02d75;
+    background: #202635;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #f02d75;
+    outline-offset: 3px;
+  }
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f02d75;
+  color: #fff;
+  font-weight: 700;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 100;
+  width: 230px;
+  padding: 8px;
+  box-sizing: border-box;
+  background: #151a22;
+  border: 1px solid #30394a;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.dropdown-user {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px;
+  color: #f5f6fa;
+  border-bottom: 1px solid #303641;
+  overflow-wrap: anywhere;
+
+  strong {
+    font-size: 14px;
+  }
+
+  small {
+    color: #a3aabd;
+    font-size: 12px;
+  }
+}
+
+.profile-dropdown button {
+  width: 100%;
+  padding: 12px;
+  display: block;
+  text-align: left;
+  background: transparent;
+  color: #f5f6fa;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #252a39;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #f02d75;
+    outline-offset: -2px;
+  }
+
+  &.logout-option {
+    margin-top: 5px;
+    border-top: 1px solid #303641;
+    color: #ff5d7d;
+  }
+}
+
+/* Page heading */
 .page-header {
   text-align: center;
   margin-bottom: 32px;
@@ -38,6 +163,7 @@
   }
 }
 
+/* Interview form */
 .interview-input-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -64,7 +190,6 @@
     padding: 16px;
     box-sizing: border-box;
     resize: vertical;
-
     background: #202635;
     color: #f5f6fa;
     border: 1px solid #30394a;
@@ -152,6 +277,7 @@
   }
 }
 
+/* Resume upload */
 .upload-box {
   min-height: 132px;
   padding: 20px;
@@ -163,7 +289,6 @@
   gap: 9px;
   text-align: center;
   cursor: pointer;
-
   background: #202635;
   border: 1px dashed #3a4355;
   border-radius: 9px;
@@ -214,13 +339,13 @@
   }
 }
 
+/* Self description */
 .input-group .self-description {
   width: 100%;
   min-height: 100px;
   padding: 14px;
   box-sizing: border-box;
   resize: vertical;
-
   background: #202635;
   border: 1px solid #3b4355;
   border-radius: 8px;
@@ -240,6 +365,7 @@
   }
 }
 
+/* Info box */
 .info-box {
   display: flex;
   align-items: flex-start;
@@ -261,6 +387,7 @@
   }
 }
 
+/* Generate button */
 .generate-btn {
   width: 100%;
   margin-top: auto;
@@ -269,7 +396,6 @@
   justify-content: center;
   align-items: center;
   gap: 9px;
-
   border: 0;
   border-radius: 9px;
   background: linear-gradient(100deg, #f02d75, #ec0870);
@@ -299,6 +425,7 @@
   font-size: 12px;
 }
 
+/* Loading */
 .loading-screen {
   min-height: 100vh;
   display: grid;
@@ -307,9 +434,32 @@
   color: white;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .home {
-    padding: 28px 14px;
+    padding: 24px 14px 32px;
+  }
+
+  .home-topbar {
+    margin-bottom: 28px;
+  }
+
+  .brand {
+    font-size: 21px;
+  }
+
+  .profile-menu-button {
+    padding: 8px 10px;
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  .profile-dropdown {
+    width: 220px;
+  }
+
+  .page-header h1 {
+    letter-spacing: -0.5px;
   }
 
   .interview-input-group {
@@ -332,5 +482,21 @@
 
   .form-footer {
     padding: 15px 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .home-topbar {
+    align-items: flex-start;
+  }
+
+  .profile-menu-button {
+    gap: 5px;
+    padding: 7px;
+  }
+
+  .avatar {
+    width: 24px;
+    height: 24px;
   }
 }

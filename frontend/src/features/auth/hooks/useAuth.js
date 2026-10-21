@@ -9,24 +9,22 @@ export const useAuth = () => {
 
     const context = useContext(AuthContext)
     const { user, setUser, loading, setLoading } = context
-
 const handleLogin = async ({ email, password }) => {
-    console.log("LOGIN CLICKED");
-
-    setLoading(true);
-    console.log("LOADING:", true);
-
     try {
+        setLoading(true);
+
         const data = await login({ email, password });
-        console.log("API RESPONSE:", data);
+
+       
 
         setUser(data.user);
-    } catch (err) {
-        console.log("LOGIN ERROR:", err);
+
+        return data;
+    } catch (error) {
+        console.error("LOGIN ERROR:", error);
+        throw error;
     } finally {
-   
-            setLoading(false);
-         
+        setLoading(false);
     }
 };
     
@@ -37,6 +35,7 @@ const handleLogin = async ({ email, password }) => {
             const data = await register({ name, email, password })
             setUser(data.user)
         } catch (err) {
+             console.error("Register error:", err);
 
         } finally {
             setLoading(false)

@@ -23,21 +23,23 @@ export async function register({ name, email, password }) {
 
 export async function login({ email, password }) {
   try {
+    console.log("LOGIN REQUEST:", { email, password: "******" });
+
     const response = await api.post("/api/auth/login", {
       email,
       password
     });
 
+   
     return response.data;
   } catch (err) {
-    console.log(
-      "LOGIN ERROR:",
-      err.response?.data || err.message
-    );
-
+    console.log("STATUS:", err.response?.status);
+    console.log("BACKEND ERROR:", err.response?.data);
+    console.log("REQUEST BODY:", err.config?.data);
     throw err;
   }
 }
+
 
 
 export async function logout() {
@@ -50,15 +52,16 @@ export async function logout() {
   }
 }
 
+
 export async function getMe() {
-    try {
-        const response = await api.get("/api/auth/get-me");
-        return response.data;
-    } catch (err) {
-        console.loga(
-            "GET ME ERROR:",
-            err.response?.data || err.message
-        );
-        throw err;
-    }
+  try {
+    const response = await api.get("/api/auth/get-me");
+    return response.data;
+  } catch (err) {
+    console.log(
+      "GET ME ERROR:",
+      err.response?.data || err.message
+    );
+    throw err;
+  }
 }
