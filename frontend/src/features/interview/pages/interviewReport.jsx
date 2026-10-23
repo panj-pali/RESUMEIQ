@@ -50,21 +50,39 @@ function InterviewReports() {
     return <p>{error}</p>;
   }
 
-  return (
-    <div className="interview-reports">
-      <button
-  className="back-button"
-  onClick={() => navigate(-1)}
->
-  ← Back
-</button>
-      <h2>My Recent Interview Reports</h2>
+ 
+return (
+  <div className="interview-reports">
+    <button
+      className="back-button"
+      onClick={() => navigate(-1)}
+    >
+      ← Back
+    </button>
 
-      {reports.length === 0 ? (
-        <p>No interview reports found. Generate your first report!</p>
-      ) : (
-        reports.map((report) => (
-          <div className="report-card" key={report._id}>
+    <h2>My Recent Interview Reports</h2>
+
+    {reports.length === 0 ? (
+      <p className="empty-state">
+        No interview reports found. Generate your first report!
+      </p>
+    ) : (
+      <div className="reports-grid">
+        {reports.map((report) => (
+          <div
+            className="report-card"
+            key={report._id}
+            onClick={() =>
+              navigate(`/interview/${report._id}`)
+            }
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                navigate(`/interview/${report._id}`);
+              }
+            }}
+          >
             <h3>
               {report.title ||
                 report.jobTitle ||
@@ -72,14 +90,12 @@ function InterviewReports() {
                 "Interview Report"}
             </h3>
 
-              <p>
-    <strong>Match Score:</strong>{" "}
-    {report.matchScore ?? "Not available"} / 100
-  </p>
+            <p className="match-score">
+              <strong>Match Score:</strong>{" "}
+              {report.matchScore ?? "Not available"} / 100
+            </p>
 
-
-
-            <p>
+            <p className="generated-date">
               <strong>Date:</strong>{" "}
               {report.createdAt
                 ? new Date(report.createdAt).toLocaleDateString("en-IN")
@@ -88,10 +104,12 @@ function InterviewReports() {
 
          
           </div>
-        ))
-      )}
-    </div>
-  );
+        ))}
+      </div>
+    )}
+  </div>
+);
+
 }
 
 export default InterviewReports;

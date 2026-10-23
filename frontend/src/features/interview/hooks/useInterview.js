@@ -1,4 +1,9 @@
-import { getAllInterviewReports, generateInterviewReport, getInterviewReportById, generateResumePdf } from "../servives/interview.api"
+import {
+  getAllInterviewReports,
+  generateInterviewReport,
+  getInterviewReportById,
+  generateResumePdf
+} from "../servives/interview.api.js";
 import { useContext, useEffect } from "react"
 import { InterviewContext } from "../interview.context"
 import { useParams } from "react-router"
@@ -59,25 +64,39 @@ export const useInterview = () => {
         return response.interviewReports
     }
 
-    const getResumePdf = async (interviewReportId) => {
-        setLoading(true)
-        let response = null
-        try {
-            response = await generateResumePdf({ interviewReportId })
-            const url = window.URL.createObjectURL(new Blob([ response ], { type: "application/pdf" }))
-            const link = document.createElement("a")
-            link.href = url
-            link.setAttribute("download", `resume_${interviewReportId}.pdf`)
-            document.body.appendChild(link)
-            link.click()
-        }
-        catch (error) {
-            console.log(error)
-        } finally {
-            setLoading(false)
-        }
-    }
+  // Download resume PDF
+const getResumePdf = async (interviewReportId) => {
+    setLoading(true);
 
+    try {
+        const response = await generateResumePdf({
+            interviewReportId
+        });
+
+        // Create PDF URL
+        const url = window.URL.createObjectURL(
+            new Blob([response], { type: "application/pdf" })
+        );
+
+        // Create download link
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `resume_${interviewReportId}.pdf`;
+
+        // Download PDF
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        // Clean up URL
+        window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+        console.error("PDF download failed:", error);
+    } finally {
+        setLoading(false);
+    }
+};
     useEffect(() => {
         if (interviewId) {
             getReportById(interviewId)

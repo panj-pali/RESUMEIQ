@@ -1,80 +1,94 @@
+
+/* ========================================
+   GLOBAL STYLES
+======================================== */
+
+/* Include padding and border in element width */
 * {
   box-sizing: border-box;
 }
 
+/* Main layout: sidebar, questions and right panel */
 .interview-report {
   width: 100%;
   min-height: 100vh;
-
   display: grid;
-  grid-template-columns: 253px minmax(600px, 1fr) 258px;
-
+  grid-template-columns: 220px minmax(0, 1fr) 240px;
   background: #11161e;
   color: #f0f2f5;
-
   font-family: Arial, Helvetica, sans-serif;
-
-  overflow: hidden;
 }
 
+/* ========================================
+   LEFT SIDEBAR - FIXED POSITION
+======================================== */
 
-// ======================================
-// LEFT SIDEBAR
-// ======================================
+/* Keep sidebar fixed while scrolling */
+.interview-report .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
 
-.sidebar {
-  min-height: 100vh;
+  width: 220px;
+  height: 100vh;
+  min-height: 0;
 
-  padding-top: 38px;
+  padding: 38px 0 20px;
+  display: flex;
+  flex-direction: column;
 
   background: #11161e;
-
   border-right: 1px solid #252b34;
+
+  /* Allow sidebar menu to scroll if content is long */
+  overflow-y: auto;
+  z-index: 100;
 }
 
+/* Sidebar heading: SECTIONS */
 .sidebar-heading {
+  flex-shrink: 0;
   padding-left: 31px;
-
   margin-bottom: 22px;
 
   color: #8c949e;
-
   font-size: 12px;
   font-weight: 700;
-
   letter-spacing: 1px;
 }
 
+/* Sidebar menu container */
 .sidebar-menu {
   width: 100%;
+  flex-shrink: 0;
 }
 
+/* Individual sidebar menu item */
 .sidebar-item {
-  height: 42px;
-
+  min-height: 42px;
   margin: 0 18px 8px 0;
-  padding-left: 31px;
+  padding: 10px 12px 10px 31px;
 
   display: flex;
   align-items: center;
-
   gap: 12px;
 
   color: #a5adb7;
-
   font-size: 15px;
-
   cursor: pointer;
 }
 
+/* Highlight selected section */
 .sidebar-item.active {
   background: #421b32;
-
   color: #ff397d;
 }
 
+/* Keep sidebar icons aligned */
 .sidebar-icon {
   width: 17px;
+  flex-shrink: 0;
 
   display: inline-flex;
   align-items: center;
@@ -83,94 +97,119 @@
   font-size: 16px;
 }
 
+/* ========================================
+   DOWNLOAD RESUME BUTTON
+======================================== */
 
-// ======================================
-// CENTER QUESTIONS
-// ======================================
+/* Push the button to the bottom of the sidebar */
+.interview-report .sidebar .primary-button {
+  width: calc(100% - 24px);
+  margin: auto 12px 0;
+  padding: 12px 8px;
 
+  display: block;
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #e9007f;
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+
+/* Button hover effect */
+.interview-report .sidebar .primary-button:hover {
+  background: #ff168f;
+}
+
+/* ========================================
+   CENTER QUESTIONS SECTION
+======================================== */
+
+/* Leave space for fixed sidebar */
 .questions-section {
+  grid-column: 2;
   min-width: 0;
-
-  padding: 38px 37px 40px 37px;
-
+  padding: 38px 30px 40px;
   background: #121821;
 }
 
+/* Questions title row */
 .questions-heading {
-  height: 43px;
-
+  min-height: 43px;
   display: flex;
   align-items: center;
-
   gap: 15px;
 
   border-bottom: 1px solid #252c35;
-
   margin-bottom: 18px;
 }
 
+/* Main heading */
 .questions-heading h1 {
   margin: 0;
-
+  color: #f1f3f5;
   font-size: 20px;
   font-weight: 700;
-
-  color: #f1f3f5;
 }
 
+/* Total questions badge */
 .questions-count {
   padding: 6px 13px;
-
   border-radius: 14px;
 
   background: #252c37;
-
   color: #8e98a5;
 
   font-size: 11px;
   font-weight: 600;
 }
 
+/* Questions list container */
 .questions-list {
   width: 100%;
 }
 
+/* ========================================
+   QUESTION CARD
+======================================== */
 
-// ======================================
-// QUESTION CARD
-// ======================================
-
+/* Individual question card */
 .question-card {
   width: 100%;
-
   margin-bottom: 14px;
 
   background: #1a202b;
-
   border: 1px solid #252d38;
-
   border-radius: 8px;
 
   overflow: hidden;
 }
 
+/* Question title and arrow row */
 .question-header {
   min-height: 55px;
-
-  padding: 0 20px;
+  padding: 12px 20px;
 
   display: flex;
   align-items: center;
-
   gap: 13px;
 
   cursor: pointer;
 }
 
+/* Question number box */
 .question-number {
   width: 34px;
   height: 29px;
-
   flex-shrink: 0;
 
   display: flex;
@@ -178,124 +217,118 @@
   justify-content: center;
 
   background: #431931;
-
   color: #ff3478;
-
   border-radius: 2px;
 
   font-size: 12px;
   font-weight: 700;
 }
 
+/* Question text */
 .question-text {
   flex: 1;
+  min-width: 0;
 
   color: #f0f2f4;
-
   font-size: 15px;
   font-weight: 600;
-
   line-height: 1.45;
 }
 
+/* Expand and collapse arrow */
 .question-arrow {
   width: 20px;
+  flex-shrink: 0;
 
   color: #ff397b;
-
   font-size: 17px;
-
   text-align: center;
 }
 
+/* ========================================
+   QUESTION ANSWER CONTENT
+======================================== */
 
-// ======================================
-// QUESTION CONTENT
-// ======================================
-
+/* Expanded question content */
 .question-content {
   padding: 17px 20px 20px;
 
   border-top: 1px solid #292f39;
-
   background: #1a202b;
 }
 
+/* Answer section labels */
 .content-label {
   width: max-content;
-
+  max-width: 100%;
   padding: 5px 9px;
-
   margin-bottom: 9px;
 
   border-radius: 4px;
 
   font-size: 10px;
   font-weight: 700;
-
   letter-spacing: 1px;
 }
 
+/* Intention label */
 .content-label.intention {
   background: #29275c;
-
   color: #9e96ff;
 }
 
+/* Model answer label */
 .content-label.model-answer {
   background: #163c32;
-
   color: #43d59a;
 }
 
+/* Answer paragraphs */
 .question-content p {
   margin: 0 0 17px;
-
   color: #c2c8d0;
-
   font-size: 13px;
-
   line-height: 1.65;
 }
 
+/* Remove extra space after final paragraph */
 .question-content p:last-child {
   margin-bottom: 0;
 }
 
+/* ========================================
+   RIGHT PANEL
+======================================== */
 
-// ======================================
-// RIGHT PANEL
-// ======================================
-
+/* Resume match score and skill gaps */
 .right-panel {
+  grid-column: 3;
+  min-width: 0;
   min-height: 100vh;
 
   padding: 38px 18px;
 
   background: #11161e;
-
   border-left: 1px solid #252b34;
 }
 
+/* Match score heading */
 .match-title {
   margin-bottom: 18px;
-
   color: #8c949e;
-
   font-size: 11px;
   font-weight: 700;
-
   letter-spacing: 1px;
 }
 
+/* ========================================
+   MATCH SCORE
+======================================== */
 
-// ======================================
-// SCORE
-// ======================================
-
+/* Center score and description */
 .score-area {
   padding-bottom: 25px;
-
+margin-top: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -303,12 +336,12 @@
   border-bottom: 1px solid #252c35;
 }
 
+/* Circular score indicator */
 .score-circle {
   width: 104px;
   height: 104px;
 
   border: 4px solid #42d767;
-
   border-radius: 50%;
 
   display: flex;
@@ -316,65 +349,56 @@
   align-items: center;
   justify-content: center;
 
-  box-shadow:
-    0 0 7px rgba(66, 215, 103, 0.15);
+  box-shadow: 0 0 7px rgba(66, 215, 103, 0.15);
 }
 
+/* Score number */
 .score-number {
   margin-top: 3px;
-
   color: #f1f3f5;
-
   font-size: 30px;
   font-weight: 700;
-
   line-height: 30px;
 }
 
+/* Percentage text */
 .score-percent {
   margin-top: 2px;
-
   color: #8c949e;
-
   font-size: 11px;
 }
 
+/* Match status */
 .match-text {
   margin-top: 13px;
-
   color: #42d767;
-
   font-size: 12px;
   font-weight: 600;
 }
 
+/* ========================================
+   SKILL GAPS
+======================================== */
 
-// ======================================
-// SKILL GAPS
-// ======================================
-
+/* Skill gaps section spacing */
 .skill-gap {
   padding-top: 24px;
 }
 
+/* Skill gaps heading */
 .skill-heading {
   margin-bottom: 15px;
-
   color: #8c949e;
-
   font-size: 11px;
   font-weight: 700;
-
   letter-spacing: 1px;
 }
 
+/* Individual skill badge */
 .skill {
   width: 100%;
-
   min-height: 40px;
-
   margin-bottom: 9px;
-
   padding: 8px 11px;
 
   display: flex;
@@ -384,85 +408,173 @@
 
   font-size: 12px;
   font-weight: 600;
-
   line-height: 1.35;
 }
 
+/* Missing skill */
 .skill-red {
   background: #422128;
-
   border: 1px solid #663139;
-
   color: #ff6262;
 }
 
-.skill-yellow {
+/* Skills needing improvement */
+.skill-yellow,
+.skill-orange {
   background: #41371e;
-
   border: 1px solid #635328;
-
   color: #e7ad38;
 }
 
-.skill-orange {
-  background: #41371e;
-
-  border: 1px solid #635328;
-
-  color: #e5ab36;
-}
-
+/* Matched skill */
 .skill-green {
   background: #193a29;
-
   border: 1px solid #2a5c3d;
-
   color: #55ce76;
 }
 
+/* ========================================
+   TABLET RESPONSIVENESS
+======================================== */
 
-// ======================================
-// RESPONSIVE
-// ======================================
-
-@media (max-width: 1100px) {
-
+@media (min-width: 851px) and (max-width: 1100px) {
+  /* Reduce sidebar and right panel widths */
   .interview-report {
-    grid-template-columns: 210px minmax(500px, 1fr) 220px;
+    grid-template-columns: 190px minmax(0, 1fr) 210px;
   }
 
+  /* Match fixed sidebar width to grid column */
+  .interview-report .sidebar {
+    width: 190px;
+  }
+
+  /* Reduce question section spacing */
   .questions-section {
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Adjust sidebar text spacing */
+  .sidebar-heading,
+  .sidebar-item {
+    padding-left: 20px;
   }
 }
 
+/* ========================================
+   MOBILE RESPONSIVENESS
+======================================== */
 
 @media (max-width: 850px) {
+  /* Keep sidebar fixed on the left */
+  .interview-report .sidebar {
+    width: 220px;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
 
-  .interview-report {
-    grid-template-columns: 1fr;
+    padding: 24px 0 20px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    border-right: 1px solid #252b34;
+    border-bottom: none;
+
+    overflow-y: auto;
+    z-index: 100;
   }
 
-  .sidebar {
-    min-height: auto;
-
-    border-right: none;
-    border-bottom: 1px solid #252b34;
-  }
-
+  /* Keep menu items stacked in the sidebar */
   .sidebar-menu {
     display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
   }
 
+  /* Adjust mobile sidebar items */
   .sidebar-item {
-    margin-bottom: 0;
+    flex: none;
+    width: auto;
+    margin: 0 18px 8px 0;
+    padding: 10px 12px 10px 31px;
+    gap: 12px;
   }
 
-  .right-panel {
-    min-height: auto;
+  /* Keep download button at the sidebar bottom */
+  .interview-report .sidebar .primary-button {
+    width: calc(100% - 18px);
+    margin: auto 9px 0;
+    padding: 12px 4px;
+    font-size: 13px;
+  }
 
+  /* Move report content to the right of the fixed sidebar */
+  .questions-section {
+    grid-column: 2;
+    padding: 24px 16px;
+  }
+
+  /* Keep right panel in the content column */
+  .right-panel {
+    grid-column: 2;
+    min-height: auto;
+    padding: 24px 16px;
     border-left: none;
     border-top: 1px solid #252b34;
+  }
+
+  /* Use sidebar width plus flexible content column */
+  .interview-report {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+}
+
+/* ========================================
+   SMALL MOBILE SCREENS
+======================================== */
+
+@media (max-width: 400px) {
+  /* Reduce question heading size */
+  .questions-heading h1 {
+    font-size: 16px;
+  }
+
+  /* Reduce question card padding */
+  .question-header {
+    padding: 12px;
+    gap: 9px;
+  }
+
+  .question-content {
+    padding: 14px;
+  }
+
+  /* Keep text readable in narrow content area */
+  .questions-section {
+    padding: 20px 12px;
+  }
+}
+
+.back-button {
+  padding: 10px 18px;
+  margin-bottom: 20px;
+  background: #d214b6;
+  color: #ffffff;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  &:hover {
+    background: #3b82f6;
+    border-color: #3b82f6;
   }
 }

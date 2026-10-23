@@ -123,7 +123,7 @@ const Home = () => {
                                     type="button"
                                     onClick={() => {
                                         setMenuOpen(false);
-                                        navigate("/profile");
+                                        navigate("/");
                                     }}
                                 >
                                     👤 Profile

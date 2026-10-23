@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import "../style/interview.scss";
 import { useInterview } from "../hooks/useInterview.js";
-
+import { generateResumePdf } from "../servives/interview.api.js";
+import { useNavigate } from "react-router-dom";
 const Interview = () => {
 
   // =========================
   // GET REPORT FROM BACKEND
   // =========================
 
-  const { loading, report } = useInterview();
+ const { loading, report, getResumePdf } = useInterview();
+  const navigate = useNavigate();
 
 
   // =========================
@@ -201,6 +203,13 @@ const Interview = () => {
 
 
         </div>
+     <button
+  onClick={() => getResumePdf(report?._id)}
+  className="button primary-button"
+  disabled={!report?._id}
+>
+  Download Resume
+</button>
 
       </aside>
 
@@ -616,6 +625,13 @@ const Interview = () => {
       ===================================== */}
 
       <aside className="right-panel">
+
+        <button
+  className="back-button"
+  onClick={() => navigate(-1)}
+>
+  ← Back
+</button>
 
 
         {/* =================================
