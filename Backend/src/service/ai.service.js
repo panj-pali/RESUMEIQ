@@ -1,8 +1,5 @@
 const { GoogleGenAI } = require("@google/genai")
 const { z } = require("zod")
-const puppeteer = process.env.VERCEL
-    ? require("puppeteer-core")
-    : require("puppeteer")
 const { zodToJsonSchema } = require("zod-to-json-schema");
 
 
@@ -652,6 +649,10 @@ Do not intentionally reduce the number of questions.
 
 
 async function generatePdfFromHtml(htmlContent) {
+    const puppeteerModule = process.env.VERCEL
+        ? await import("puppeteer-core")
+        : await import("puppeteer");
+    const puppeteer = puppeteerModule.default;
     const launchOptions = {};
 
     if (process.env.VERCEL) {
