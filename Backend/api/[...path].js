@@ -1,11 +1,13 @@
-const app = require("../src/app");
 const connectDB = require("../src/config/database");
 
 module.exports = async function handler(req, res) {
   const pathname = new URL(req.url, "http://localhost").pathname;
 
   if (pathname === "/api/health") {
-    return app(req, res);
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ status: "ok" }));
+    return;
   }
 
   try {
@@ -20,5 +22,15 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  return app(req, res);
+  try {
+    const app = require("../src/app");
+    return app(req, res);
+  } catch (error) {
+    console.error("API handler initialization failed:", error);
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({
+      message: "API initialization failed. Check the Vercel function logs.",
+    }));
+  }
 };
