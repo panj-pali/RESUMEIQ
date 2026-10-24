@@ -4,7 +4,7 @@ const multer = require("multer")
 const upload = multer({
     storage: multer.memoryStorage(),
     limits: {
-        fileSize: 5 * 1024 * 1024 // 5MB
+        fileSize: process.env.VERCEL ? 4 * 1024 * 1024 : 5 * 1024 * 1024
     }
 })
 

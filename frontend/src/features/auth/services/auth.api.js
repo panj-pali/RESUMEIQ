@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-  baseURL: "http://localhost:3100",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3100",
   withCredentials: true
 })
 
@@ -23,8 +23,6 @@ export async function register({ name, email, password }) {
 
 export async function login({ email, password }) {
   try {
-    console.log("LOGIN REQUEST:", { email, password: "******" });
-
     const response = await api.post("/api/auth/login", {
       email,
       password
@@ -35,7 +33,6 @@ export async function login({ email, password }) {
   } catch (err) {
     console.log("STATUS:", err.response?.status);
     console.log("BACKEND ERROR:", err.response?.data);
-    console.log("REQUEST BODY:", err.config?.data);
     throw err;
   }
 }

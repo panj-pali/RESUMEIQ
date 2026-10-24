@@ -1,6 +1,8 @@
 const { GoogleGenAI } = require("@google/genai")
 const { z } = require("zod")
-const puppeteer = require("puppeteer")
+const puppeteer = process.env.VERCEL
+    ? require("puppeteer-core")
+    : require("puppeteer")
 const { zodToJsonSchema } = require("zod-to-json-schema");
 
 
@@ -650,23 +652,33 @@ Do not intentionally reduce the number of questions.
 
 
 async function generatePdfFromHtml(htmlContent) {
-    const browser = await puppeteer.launch()
-    const page = await browser.newPage();
-    await page.setContent(htmlContent, { waitUntil: "networkidle0" })
+    const launchOptions = {};
 
-  const pdfBuffer = await page.pdf({
-    format: "A4",
-    printBackground: true,
-    margin: {
-        top: "10mm",
-        bottom: "10mm",
-        left: "10mm",
-        right: "10mm"
+    if (process.env.VERCEL) {
+        const chromium = require("@sparticuz/chromium").default;
+        launchOptions.args = chromium.args;
+        launchOptions.executablePath = await chromium.executablePath();
+        launchOptions.headless = true;
     }
-});
-    await browser.close()
 
-    return pdfBuffer
+    const browser = await puppeteer.launch(launchOptions);
+    try {
+        const page = await browser.newPage();
+        await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+
+        return await page.pdf({
+            format: "A4",
+            printBackground: true,
+            margin: {
+                top: "10mm",
+                bottom: "10mm",
+                left: "10mm",
+                right: "10mm"
+            }
+        });
+    } finally {
+        await browser.close();
+    }
 }
 
 async function generateResumePdf({ resume, selfDescription, jobDescription }) {
