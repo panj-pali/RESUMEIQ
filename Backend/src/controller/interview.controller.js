@@ -1,4 +1,5 @@
 
+require("@napi-rs/canvas");
 const pdfParse = require("pdf-parse")
 const { generateInterviewReport ,  generateResumePdf } = require("../service/ai.service")
 const interviewReportModel = require("../model/interviewReport.model")
