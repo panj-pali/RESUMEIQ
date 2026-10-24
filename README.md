@@ -13,8 +13,8 @@ Create a Vercel project for this repository with **Root Directory** set to
 as the output directory. The `frontend/vercel.json` rewrite sends client-side
 routes back to the SPA entry point.
 
-Deploy once to get the frontend URL. The app will not be able to reach the API
-until you set `VITE_API_URL` and redeploy.
+The frontend's Vercel rewrite proxies `/api/*` requests to the API deployment,
+so browser requests and authentication cookies stay on the frontend origin.
 
 ### 2. Deploy the API
 
@@ -38,22 +38,24 @@ provider's guidance.
 
 ### 3. Connect the frontend and API
 
-In the frontend Vercel project, set `VITE_API_URL` to the API deployment
-origin, with no trailing slash (for example, `https://your-api.vercel.app`),
-then redeploy the frontend. If the frontend's final domain differs from the
-origin used when deploying the API, update `FRONTEND_URL` in the API project
-and redeploy the API.
+The frontend Vercel rewrite targets
+`https://resumeiq-mqsl.vercel.app`. If you use a different API deployment,
+update that destination in `frontend/vercel.json` and redeploy the frontend.
+If the frontend's final domain differs from the origin used when deploying the
+API, update `FRONTEND_URL` in the API project and redeploy the API.
 
-Verify the API and database connection at
-`https://your-api.vercel.app/api/health`. Authentication uses secure,
-HTTP-only cookies in production. Resume uploads are limited to 4 MB on Vercel
-to stay within the platform's request-size limit.
+Verify that the API function responds at
+`https://your-api.vercel.app/api/health`. Database-backed endpoints return
+HTTP 503 with a clear setup message when the database is unavailable; check
+the API function logs for the underlying connection error. Authentication
+uses secure, HTTP-only cookies in production. Resume uploads are limited to 4
+MB on Vercel to stay within the platform's request-size limit.
 
 ## Local development
 
 Copy `Backend/.env.example` to `Backend/.env` and fill in the required
-credentials. Copy `frontend/.env.example` to `frontend/.env` if the API is not
-running at `http://localhost:3100`.
+credentials. The Vite development server proxies `/api/*` to
+`http://localhost:3100`.
 
 Install dependencies and run each app in a separate terminal:
 
